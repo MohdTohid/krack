@@ -2,6 +2,7 @@ import { DM_Serif_Text } from "next/font/google";
 import React from "react";
 import Button from "@/components/Button";
 import Link from "next/link";
+import CallToAction from "./CallToAction";
 
 const dmserif = DM_Serif_Text({ subsets: ["latin"], weight: "400" });
 
@@ -20,14 +21,7 @@ export default function Hero() {
         Create custom NEET question papers and solve them quickly and{" "}
         <span className="font-semibold">review your performance</span>
       </p>
-      <div className="grid grid-cols-2 gap-4 w-fit mx-auto">
-        <Link href={"/dashboard"}>
-          <Button text="Sign Up"></Button>
-        </Link>
-        <Link href={"/dashboard"}>
-          <Button dark text="Login"></Button>
-        </Link>
-      </div>
+      <CallToAction />
     </div>
   );
 }

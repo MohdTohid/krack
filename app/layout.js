@@ -2,6 +2,8 @@ import { AuthProvider } from "@/context/AuthContext";
 import "./globals.css";
 import { DM_Serif_Text } from "next/font/google";
 import Link from "next/link";
+import Head from "./head";
+import Logout from "@/components/Logout";
 
 const dmserif = DM_Serif_Text({ subsets: ["latin"], weight: "400" });
 
@@ -20,7 +22,7 @@ export default function RootLayout({ children }) {
           Krack
         </h1>
       </Link>
-      <div className="flex items-center justify between">PLACEHOLDER</div>
+      <Logout />
     </header>
   );
 
@@ -32,6 +34,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
+      <Head />
       <AuthProvider>
         <body
           className={
