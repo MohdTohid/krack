@@ -11,17 +11,19 @@ export default function Logout() {
 
   const pathname = usePathname();
 
-  if (pathname === "/") {
-    return (
-      <Link href={"/dashboard"}>
-        <Button text="Go to dashboard" />;
-      </Link>
-    );
-  }
-
   if (!currentUser) {
     return null;
-  }
+  } else {
+    if (pathname === "/") {
+      return (
+        <Link href={"/dashboard"}>
+          <Button dark text="Go to Dashboard" />
+        </Link>
+      );
+    }
 
-  return <Button text="Log Out" clickHandler={logout} />;
+    if (pathname === "/dashboard") {
+      return <Button text="Log Out" clickHandler={logout} />;
+    }
+  }
 }

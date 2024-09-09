@@ -11,7 +11,8 @@ export default function Hero() {
     <div className="p-4 md:py-12 flex flex-col gap-8 sm:gap-10">
       <h1
         className={
-          "text-5xl sm:text-6xl md:text-7xl text-center max-w-[1200px] mx-auto " + dmserif.className
+          "text-5xl sm:text-6xl md:text-7xl text-center max-w-[1200px] mx-auto " +
+          dmserif.className
         }
       >
         <span className="textGradient ">Krack</span> helps you to quickly have a
