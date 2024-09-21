@@ -1,13 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext"; // Assuming you're using AuthContext to manage auth
 import { db } from "@/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
+import Loading from "@/components/Loading";
 
-export default function Registration() {
-  const { currentUser } = useAuth();
+export default function RegistrationPage() {
+  const { currentUser, loading: authLoading } = useAuth();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dob, setDob] = useState("");
@@ -21,7 +22,6 @@ export default function Registration() {
     setLoading(true);
 
     // VALIDATION GOES HERE =
-    
 
     try {
       const userDocRef = doc(db, "students", currentUser.uid);
@@ -46,6 +46,16 @@ export default function Registration() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!authLoading && !currentUser) {
+      router.push("/dashboard");
+    }
+  }, [currentUser, authLoading, router]);
+
+  if (authLoading || !currentUser) {
+    return <Loading />
+  }
 
   return (
     <div className="max-w-lg mx-auto p-4">
@@ -116,5 +126,5 @@ export default function Registration() {
         </button>
       </form>
     </div>
-  );
+  )
 }

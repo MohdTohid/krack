@@ -3,14 +3,14 @@
 import React, { useState } from "react";
 import Button from "./Button";
 import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isRegistered, setIsRegistered] = useState(false);
   const [authenticating, setAuthenticating] = useState(false);
-
-  const { signup, login, logout } = useAuth();
+  const { signup, login, isRegistered, setIsRegistered } = useAuth();
+  const router = useRouter();
 
   async function handleSubmit() {
     if (!email || !password || password.length < 6) {
@@ -21,11 +21,10 @@ export default function Login() {
 
     try {
       if (isRegistered) {
-        console.log("Logging existing user!");
         await login(email, password);
       } else {
-        console.log("Signing up a new user!");
         await signup(email, password);
+        router.push("/registration");
       }
     } catch (error) {
       console.log("ERROR: " + error.message);

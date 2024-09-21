@@ -6,7 +6,7 @@ import Button from "./Button";
 import { useAuth } from "@/context/AuthContext";
 
 export default function CallToAction() {
-  const { currentUser, loading } = useAuth();
+  const { currentUser, loading, setIsRegistered } = useAuth();
 
   if (currentUser) {
     return (
@@ -22,10 +22,21 @@ export default function CallToAction() {
     return (
       <div className="grid grid-cols-2 gap-4 w-fit mx-auto">
         <Link href={"/dashboard"}>
-          <Button text="Sign Up"></Button>
+          <Button
+            text="Sign Up"
+            clickHandler={() => {
+              setIsRegistered(false);
+            }}
+          />
         </Link>
         <Link href={"/dashboard"}>
-          <Button dark text="Login"></Button>
+          <Button
+            dark
+            text="Login"
+            clickHandler={() => {
+              setIsRegistered(true);
+            }}
+          />
         </Link>
       </div>
     );

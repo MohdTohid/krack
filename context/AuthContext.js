@@ -20,6 +20,7 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [userDataObj, setUserDataObj] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isRegistered, setIsRegistered] = useState(null)
 
   // AUTH HANDLERS
   function signup(email, password) {
@@ -33,7 +34,6 @@ export function AuthProvider({ children }) {
           email: user.email,
           createdAt: new Date().toISOString(),
         });
-        console.log("User signed up and document created in Firestore");
       })
       .catch((error) => {
         console.log("Error signing up: ", error.message);
@@ -57,24 +57,20 @@ export function AuthProvider({ children }) {
         setLoading(true);
         setCurrentUser(user);
         if (!user) {
-          console.log("No User Found!");
           return;
         }
 
         // If user exists, fetch data from firestore database
-        console.log("Fetching User Data");
         const docRef = doc(db, "students", user.uid);
         const docSnap = await getDoc(docRef);
         let firebaseData = {};
 
         if (docSnap.exists()) {
-          console.log("Found User Data");
           firebaseData = docSnap.data();
-          console.log(firebaseData);
         }
         setUserDataObj(firebaseData);
       } catch (error) {
-        console.log(error.message);
+        console.log("ERROR: " + error.message);
       } finally {
         setLoading(false);
       }
@@ -90,6 +86,8 @@ export function AuthProvider({ children }) {
     login,
     logout,
     loading,
+    isRegistered,
+    setIsRegistered
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

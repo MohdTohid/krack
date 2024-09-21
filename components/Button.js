@@ -8,7 +8,7 @@ export default function Button(props) {
 
   return (
     <button
-    onClick={clickHandler}
+      onClick={clickHandler}
       className={
         "rounded-full overflow-hidden duration-200 hover:opacity-60 border-2 border-solid border-indigo-600 " +
         (dark ? "text-white bg-indigo-600 " : "text-indigo-600 ") +
