@@ -8,7 +8,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth, db } from "@/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const AuthContext = React.createContext();
 
@@ -23,7 +23,21 @@ export function AuthProvider({ children }) {
 
   // AUTH HANDLERS
   function signup(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        const user = userCredential.user;
+        const userDocRef = doc(db, "students", user.uid);
+
+        await setDoc(userDocRef, {
+          uid: user.uid,
+          email: user.email,
+          createdAt: new Date().toISOString(),
+        });
+        console.log("User signed up and document created in Firestore");
+      })
+      .catch((error) => {
+        console.log("Error signing up: ", error.message);
+      });
   }
 
   function login(email, password) {
@@ -49,7 +63,7 @@ export function AuthProvider({ children }) {
 
         // If user exists, fetch data from firestore database
         console.log("Fetching User Data");
-        const docRef = doc(db, "users", user.uid);
+        const docRef = doc(db, "students", user.uid);
         const docSnap = await getDoc(docRef);
         let firebaseData = {};
 
