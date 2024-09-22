@@ -5,6 +5,7 @@ import Button from "./Button";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { handleAuthError } from "./errorHandler";
+import RegistrationPage from "./Registration";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -27,15 +28,13 @@ export default function Login() {
         await login(email, password);
       } else {
         await signup(email, password);
-        router.push("/registration");
+        return (<RegistrationPage />)
       }
     } catch (error) {
+      //console.error("Firebase Error: ", error);
       const errorMessage = handleAuthError(error);
       setError(errorMessage);
     } finally {
-      setTimeout(() => {
-        setError("");
-      }, 3000);
       setAuthenticating(false);
     }
   }
@@ -67,7 +66,7 @@ export default function Login() {
         type="password"
       />
       {error && (
-        <div className="text-red-600 mt-2">
+        <div className="text-red-600 max-w-[500px]">
           <label>Error: {error}</label>
         </div>
       )}

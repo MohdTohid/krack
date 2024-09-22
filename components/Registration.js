@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import Loading from "@/components/Loading";
 
 export default function RegistrationPage() {
-  const { currentUser, loading: authLoading } = useAuth();
+  const { currentUser, loading: authLoading, setIsFirstLogin } = useAuth();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dob, setDob] = useState("");
@@ -38,7 +38,7 @@ export default function RegistrationPage() {
         },
         { merge: true }
       );
-
+      setIsFirstLogin(false);
       router.push("/dashboard");
     } catch (error) {
       console.log("Error saving student details: ", error);
@@ -47,14 +47,8 @@ export default function RegistrationPage() {
     }
   };
 
-  useEffect(() => {
-    if (!authLoading && !currentUser) {
-      router.push("/dashboard");
-    }
-  }, [currentUser, authLoading, router]);
-
-  if (authLoading || !currentUser) {
-    return <Loading />
+  if (loading) {
+    return <Loading />;
   }
 
   return (
@@ -126,5 +120,5 @@ export default function RegistrationPage() {
         </button>
       </form>
     </div>
-  )
+  );
 }

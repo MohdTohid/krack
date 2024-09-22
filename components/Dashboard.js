@@ -2,9 +2,10 @@ import React from "react";
 import Loading from "./Loading";
 import { useAuth } from "@/context/AuthContext";
 import Login from "./Login";
+import RegistrationPage from "./Registration";
 
 export default function Dashboard() {
-  const { currentUser, loading } = useAuth();
+  const { currentUser, loading,isFirstLogin } = useAuth();
 
   if (loading) {
     return <Loading />;
@@ -12,6 +13,10 @@ export default function Dashboard() {
 
   if (!currentUser) {
     return <Login />;
+  }
+
+  if (currentUser && isFirstLogin) {
+    return <RegistrationPage />;
   }
 
   return <div>Dashboard</div>;

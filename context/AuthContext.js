@@ -22,6 +22,7 @@ export function AuthProvider({ children }) {
   const [userDataObj, setUserDataObj] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isRegistered, setIsRegistered] = useState(null);
+  const [isFirstLogin, setIsFirstLogin] = useState(true)
 
   // AUTH HANDLERS
   function signup(email, password) {
@@ -86,6 +87,8 @@ export function AuthProvider({ children }) {
     loading,
     isRegistered,
     setIsRegistered,
+    isFirstLogin,
+    setIsFirstLogin
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
