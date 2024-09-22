@@ -15,7 +15,7 @@ export default function Hero() {
           dmserif.className
         }
       >
-        <span className="textGradient ">Krack</span> helps you to quickly have a
+        Krack helps you to quickly have a
         custom <span className="textGradient">NEET</span> mock test!
       </h1>
       <p className="text-lg sm:text-xl md:text-2xl text-center w-full mx-auto max-w-[600px]">

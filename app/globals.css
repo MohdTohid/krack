@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .textGradient {
-    background: -webkit-linear-gradient(#331066, #c299ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  background: -webkit-linear-gradient(rgb(61, 54, 198), rgb(130, 146, 255));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

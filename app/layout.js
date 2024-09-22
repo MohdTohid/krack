@@ -4,6 +4,7 @@ import { DM_Serif_Text } from "next/font/google";
 import Link from "next/link";
 import Head from "./head";
 import Logout from "@/components/Logout";
+import Image from "next/image";
 
 const dmserif = DM_Serif_Text({ subsets: ["latin"], weight: "400" });
 
@@ -16,11 +17,12 @@ export default function RootLayout({ children }) {
   const header = (
     <header className="p-4 sm:p-8 flex items-center justify-between gap-4">
       <Link href={"/"}>
-        <h1
-          className={"text-base sm:text-lg textGradient " + dmserif.className}
-        >
-          Krack
-        </h1>
+        <Image
+          src="/assets/logos/logo_main.svg"
+          alt="krack_logo"
+          width={150}
+          height={50}
+        />
       </Link>
       <Logout />
     </header>
