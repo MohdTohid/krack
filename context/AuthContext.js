@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { auth, db } from "@/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { handleAuthError } from "@/components/errorHandler";
 
 const AuthContext = React.createContext();
 
@@ -20,7 +21,7 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [userDataObj, setUserDataObj] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isRegistered, setIsRegistered] = useState(null)
+  const [isRegistered, setIsRegistered] = useState(null);
 
   // AUTH HANDLERS
   function signup(email, password) {
@@ -35,9 +36,6 @@ export function AuthProvider({ children }) {
           createdAt: new Date().toISOString(),
         });
       })
-      .catch((error) => {
-        console.log("Error signing up: ", error.message);
-      });
   }
 
   function login(email, password) {
@@ -87,7 +85,7 @@ export function AuthProvider({ children }) {
     logout,
     loading,
     isRegistered,
-    setIsRegistered
+    setIsRegistered,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
